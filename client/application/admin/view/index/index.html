@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>购票系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"><a href=" ">购票系统</a ></div>
+        <div class="open-nav"><i class="iconfont">&#xe699;</i></div>
+    </div>
+
+    <div class="wrapper">
+        <blockquote class="layui-elem-quote">欢迎使用本购票系统！</blockquote>
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend>
+                <a name="default">票务信息统计</a >
+            </legend>
+        </fieldset>
+        <div class="layui-fluid" style="width:1250px;">
+
+        <table  class="layui-table">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>区域</th>
+                    <th>票价</th>
+                    <th>总票数</th>
+                    <th>剩余票数</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name="info" id="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.place}</td>
+                    <td>{$vo.price}</td>
+                    <td>{$vo.sum}</td>
+                    <td>{$vo.store}</td>
+                </tr>
+                {/volist}
+              
+            </tbody>
+        </table>
+
+</div>
+        <pre>      </pre>
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend>
+                <a name="default">购票信息</a >
+            </legend>
+        </fieldset>
+        
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form" action="/index.php/admin/index/kill" method="post">
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>购票区域：</label>
+                        <div class="layui-input-inline">
+                            <select id="place" name="place">
+                                {volist name="info" id="vo"}
+                                <option value={$vo.id}>{$vo.place}</option>
+                                {/volist}
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label for="desc" class="layui-form-label"><span class="x-red">*</span>购票信息：</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline">
+                                <input type="text" id="name" name="name" required="true" lay-verify="required" autocomplete="off" class="layui-input" placeholder="姓名" size="30" onmouseleave="check_name(this.value)">
+                                <p id="check_name" class="check_name">&nbsp&nbsp</p>
+                            </div>
+                            <div class="layui-input-inline">
+                                <input type="text" id="iden_num" name="iden_num" required="true" lay-verify="required" autocomplete="off" class="layui-input" placeholder="身份证号" size="35" onmouseleave="check_id(this.value)">
+                                <p id="check_id" class="check_id">&nbsp&nbsp</p>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="x-red">*</span>取票方式：</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="take" value="1" title="线下取票" checked="">
+                                <input type="radio" name="take" value="2" title="线上邮寄">
+                            </div>
+                    </div>
+                    <div class="form-actions">
+                        <label for="L_repass" class="layui-form-label"></label>
+                        <button class="layui-btn" lay-submit lay-filter="kill"  type="submit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+
+                
+                // //监听提交
+                // form.on('submit(add)',
+                // function(data) {
+                //     console.log(data);
+                //     //发异步，把数据提交给php
+                //     layer.alert("增加成功", {
+                //         icon: 6
+                //     },
+                //     function() {
+                //         // 获得frame索引
+                //         var index = parent.layer.getFrameIndex(window.name);
+                //         //关闭当前frame
+                //         parent.layer.close(index);
+                //     });
+                //     return false;
+                // });
+
+            });
+
+
+        function check_name(str){
+	    
+            var name = document.getElementById('name').value;
+            var reg = /^[\u4E00-\u9FA5]+$/;
+            if (str.length >= 2 && reg.test(name)){ 
+                document.getElementById("check_name").innerHTML="&nbsp验证通过";
+                $("#check_name").css("color", "green");
+                return;
+            }else{
+                document.getElementById("check_name").innerHTML="请输入正确的姓名";
+                $("#check_name").css("color", "red");
+            }
+        
+        }
+
+        function check_id(str){
+	    
+        var name = document.getElementById('iden_num').value;
+        var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
+        if (str.length >= 2 && reg.test(name)){ 
+            document.getElementById("check_id").innerHTML="&nbsp验证通过";
+            $("#check_id").css("color", "green");
+            return;
+        }else{
+            document.getElementById("check_id").innerHTML="请输入正确的身份证号";
+            $("#check_id").css("color", "red");
+        }
+    
+    }
+            
+
+        
+    </script>
+    
+</body>
+</html>
