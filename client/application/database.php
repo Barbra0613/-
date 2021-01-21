@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '47.98.207.137',
+    'hostname'        => '',
     // 数据库名
-    'database'        => 'backstage',
+    'database'        => '',
     // 用户名
-    'username'        => 'backstage',
+    'username'        => '',
     // 密码
-    'password'        => 'GSdtbNrFx7mTHDb7',
+    'password'        => '',
     // 端口
     'hostport'        => '',
     // 连接dsn
