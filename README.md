@@ -23,6 +23,8 @@
     
     - 配置client/application/database.php中数据库基本信息
     
+    - 配置client/application/admin/controller/Index.php中第125行与143行Rabbit MQ用户名、密码信息（默认Rabbit MQ端口号为5672）
+    
     - 访问url：域名/index.php/admin/login/index.html 即可进入用户端登录入口
     
 2. 后台管理端：
