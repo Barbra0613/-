@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加客户信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+
+</head>
+<body>
+    <!-- 中部开始 -->
+    <div class="wrapper">
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+          <div class="content">
+            <!-- 右侧内容框架，更改从这里开始 -->
+            <form class="layui-form"  action="authority_add_db" method="post" >
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label"><span class="x-red">*</span>用户名 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username"  required="true" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+               <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label"><span class="x-red">*</span>密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="password" name="password" required="true" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label"><span class="x-red">*</span>角色</label>
+                    <div class="layui-input-inline">
+                        <select name="contrller">
+                            <option value="1">系统管理员</option>
+                            <option value="2">票务管理员</option>
+                            <option value="3">人事管理员</option>
+                            <option value="4">运营管理员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_pass" class="layui-form-label">备注</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="client_comment" name="client_comment" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-submit lay-filter="add"  type="submit" >添加客户信息</button>
+                     
+                </div>
+            </form>
+            <!-- 右侧内容框架，更改从这里结束 -->
+          </div>
+        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
+</body>
+<script>layui.use(['laydate', 'form'],
+    function() {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+</script>
+</html>

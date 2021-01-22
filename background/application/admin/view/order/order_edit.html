@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑订单信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+
+</head>
+<body>
+    <!-- 中部开始 -->
+    <div class="wrapper">
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+          <div class="content">
+            <!-- 右侧内容框架，更改从这里开始 -->
+            {volist name="lists" id="vo"}
+            <form class="layui-form"  action="javascript:edit(this);" method="post" >
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="id" name="id" value={$vo.id} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">订单编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="name" name="name" value={$vo.name} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">收货人 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="user_id" name="user_id" value={$vo.user_id} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+               <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">商品名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="ticket_id" name="ticket_id" required="" value={$vo.ticket_id} lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_pass" class="layui-form-label">总金额</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="price" name="price" value={$vo.price} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">订单状态 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="status" name="status" value={$vo.status} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">下单时间 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="time" name="time" value={$vo.time} equired="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="edit" lay-submit="javascript:;" >修改订单信息</button>
+                     
+                </div>
+            </form>
+            {/volist}
+            <!-- 右侧内容框架，更改从这里结束 -->
+          </div>
+        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
+    <script>
+    
+    function edit(obj){
+        
+        var id = document.getElementById('id').value;
+        var user_id = document.getElementById('user_id').value;
+        var ticket_id = document.getElementById('ticket_id').value;
+        var price = document.getElementById('price').value;
+        var status = document.getElementById('status').value;
+        var time = document.getElementById('time').value;
+        var url = "/index.php/admin/order/order_edit_db/id/"+ id +"/user_id/" + user_id +"/ticket_id/" + ticket_id +"/price/" + price +"/status/" + status + "/time/" + time +".html";
+        
+        // alert(url);
+    
+            $.get(url, function(data,status){
+                if(status=="success"){
+                    window.parent.location.href=window.parent.location.href;
+                }
+            });
+                //$(obj).parents("tr").remove();
+            layer.msg('数据已编辑!',{icon:1,time:1000});
+            
+    
+    }
+    
+    </script>
+</body>
+</html>

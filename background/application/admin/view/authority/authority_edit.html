@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑管理员信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+
+</head>
+<body>
+    <!-- 中部开始 -->
+    <div class="wrapper">
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+          <div class="content">
+            <!-- 右侧内容框架，更改从这里开始 -->
+            {volist name="lists" id="vo"}
+            <form class="layui-form"  action="javascript:edit(this);" method="post" >
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="id" name="id" value={$vo.id} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username" value={$vo.username} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="password" name="password" value="xxxxxxxx" required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">角色</label>
+                    <div class="layui-input-inline">
+                        <select name="contrller" id="contrller">
+                            <option value="1">系统管理员</option>
+                            <option value="2">票务管理员</option>
+                            <option value="3">人事管理员</option>
+                            <option value="4">运营管理员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="edit" lay-submit="javascript:;" >修改管理员信息</button>
+                     
+                </div>
+            </form>
+            {/volist}
+            <!-- 右侧内容框架，更改从这里结束 -->
+          </div>
+        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
+    <script>
+
+    layui.use(['laydate', 'form'],
+        function() {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+    
+    function edit(obj){
+        
+        var id = document.getElementById('id').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var contrller = document.getElementById('contrller');
+        var role = contrller.options[contrller.selectedIndex].value; 
+        // alert(role);
+       
+        var url = "/index.php/admin/authority/authority_edit_db/id/"+ id + "/username/"+ username +"/password/" + password +"/role/" + role +".html";
+        
+        // alert(url);
+    
+            $.get(url, function(data,status){
+                if(status=="success"){
+                    window.parent.location.href=window.parent.location.href;
+                }
+            });
+                //$(obj).parents("tr").remove();
+            layer.msg('数据已编辑!',{icon:1,time:1000});
+            
+    
+    }
+
+    
+    </script>
+</body>
+</html>

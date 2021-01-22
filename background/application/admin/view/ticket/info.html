@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>购票管理后台系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+</head>
+
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body ">
+                        <form class="layui-form layui-col-space5">
+                            <div class="layui-input-inline layui-show-xs-block">
+                                <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                            <div class="layui-input-inline layui-show-xs-block">
+                                <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                            <div class="layui-input-inline layui-show-xs-block">
+                                <input type="text" name="username" placeholder="请输入订单号" autocomplete="off" class="layui-input"></div>
+                            <div class="layui-input-inline layui-show-xs-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                    <i class="layui-icon">&#xe615;</i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="layui-card-header">
+                        <button class="layui-btn" onclick="ticket_add('添加票务信息','ticket_add.html','600','450')"> 
+                            <i class="layui-icon">&#xe608;</i>添加</button></div>
+                    <div class="layui-card-body ">
+                        <table class="layui-table layui-form">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="" lay-skin="primary">
+                                    </th>
+                                    <th>演出名称</th>
+                                    <th>售票区域</th>
+                                    <th>票价</th>
+                                    <th>总票数</th>
+                                    <th>未售票数</th>
+                                    <th>备注</th>
+                                    <th>操作</th></tr>
+                            </thead>
+                            <tbody>
+                                {volist name="lists" id="vo"}
+                                <tr>
+                                    <td> <input type="checkbox" name="" value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$vo.id}</td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.site_place}</td>
+                                    <td>{$vo.price}</td>
+                                    <td>{$vo.tic_num}</td>
+                                    <td>{$vo.re_num}</td>
+                                    <td>{$vo.tic_comment}</td>
+                                    <td class="td-manage">
+                                        <a title="编辑" href="javascript:;" onclick="ticket_edit('编辑',this,'600','520','{:url("ticket_edit","id=$vo[id]")}')"
+                                        class="ml-5" style="text-decoration:none">
+                                            <i class="layui-icon">&#xe642;</i></a>
+                                        <a title="删除" href="javascript:;" onclick="ticket_del(this,'{:url("ticket_del","id=$vo[id]")}')"
+                                            style="text-decoration:none">
+                                            <i class="layui-icon">&#xe640;</i></a>
+                                    </td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="layui-card-body ">
+                        <div class="page">
+                            <div>
+                                <a class="prev" href="">&lt;&lt;</a>
+                                <a class="num" href="">1</a>
+                                <span class="current">2</span>
+                                <a class="num" href="">3</a>
+                                <a class="num" href="">489</a>
+                                <a class="next" href="">&gt;&gt;</a></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    layui.use(['laydate', 'form'],
+        function() {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+
+    // 票-编辑
+    function ticket_edit (title,obj,w,h,url) {
+        // alert(url);
+        xadmin.open(title,url,w,h); 
+    }
+
+    // 票-添加
+    function ticket_add(title,url,w,h){
+        xadmin.open(title,url,w,h);
+    }
+
+    // 票-删除
+    function ticket_del(obj,url){
+        // alert(url);
+        layer.confirm('确认要删除吗？',function(index){
+            //发异步删除数据
+            $.get(url, function(data,status){
+                if(status=="success"){
+                    //alert(url);
+                    window.parent.location.href=window.parent.location.href;
+                }
+            });
+            //$(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    } 
+
+
+    // //分頁顯示
+    //     $(function () {
+    //         var $table = $("table");
+    //         var currentPage = 0; //当前页默认值为0  
+    //         var pageSize = 10; //每一页显示的数目  
+    //         $table.bind('paging', function () {
+    //             $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+    //         });
+    //         var sumRows = $table.find('tbody tr').length;
+    //         var sumPages = Math.ceil(sumRows / pageSize); //总页数  
+
+    //         var $pager = $('<div class="page"></div>');  //新建div，放入a标签,显示底部分页码  
+    //         for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+    //             $('<a style="backgroundColor:;color:;border:1px;" href="#" id="num" onclick="changCss(this)"><span>' + (pageIndex + 1) + '</span></a>').bind("click", { "newPage": pageIndex }, function (event) {
+    //                 currentPage = event.data["newPage"];
+    //                 $table.trigger("paging");
+    //                 //触发分页函数  
+    //             }).appendTo($pager);
+    //             $pager.append(" ");
+    //         }
+    //         $pager.insertAfter($table);
+    //         $table.trigger("paging");
+
+    //         //默认第一页的a标签效果  
+    //         var $pagess = $('#num');
+    //         $pagess[0].style.backgroundColor = "#009688";
+    //         $pagess[0].style.color = "#fff";
+    //         $pagess[0].style.border = '1px';
+
+    //     });
+
+    //     //a链接点击变色，再点其他回复原色  
+    //     function changCss(obj) {
+    //         var arr = document.getElementsByTagName("a");
+    //         for (var i = 0; i < arr.length; i++) {
+    //             if (obj == arr[i]) {       //当前页样式  
+    //                 obj.style.backgroundColor = "#009688";
+    //                 obj.style.color = "#fff";
+    //                 obj.style.border = '1px';
+    //             }
+    //             else {
+    //                 arr[i].style.color = "";
+    //                 arr[i].style.backgroundColor = "";
+    //                 arr[i].style.border = '1px';
+    //             }
+    //         }
+    //     }      
+    </script>
+
+</html>

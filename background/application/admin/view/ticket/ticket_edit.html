@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台登录-X-admin1.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+
+</head>
+<body>
+    <!-- 中部开始 -->
+    <div class="wrapper">
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+          <div class="content">
+            <!-- 右侧内容框架，更改从这里开始 -->
+            {volist name="lists" id="vo"}
+            <form class="layui-form"  action="javascript:edit(this);" method="post" >
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="id" name="id" value={$vo.id} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">演出名称 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="name" name="name" value={$vo.name} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+               <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">售票区域</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="place" name="place" required="" value={$vo.site_place} lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_pass" class="layui-form-label">票价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="price" name="price" value={$vo.price} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">总票数 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tic_num" name="tic_num" value={$vo.tic_num} required="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">未售票数 </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="re_num" name="re_num" value={$vo.re_num} equired="" lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="L_repass" class="layui-form-label">
+                    </label>
+                    <button  class="layui-btn" lay-filter="edit" lay-submit="javascript:;" >修改票务信息</button>
+                     
+                </div>
+            </form>
+            {/volist}
+            <!-- 右侧内容框架，更改从这里结束 -->
+          </div>
+        </div>
+        <!-- 右侧主体结束 -->
+    </div>
+    <!-- 中部结束 -->
+    <script>
+    
+    function edit(obj){
+        
+        var id = document.getElementById('id').value;
+        var place = document.getElementById('place').value;
+        var price = document.getElementById('price').value;
+        var tic_num = document.getElementById('tic_num').value;
+        var re_num = document.getElementById('re_num').value;
+        var url = "/index.php/admin/ticket/ticket_edit_db/id/"+ id +"/place/" + place +"/price/" + price +"/tic_num/" + tic_num +"/re_num/" + re_num +".html";
+        var url_1 = "http://tickets.caiqing.work/index.php/admin/index/re_init";
+        // alert(url);
+
+            $.get(url, function(data,status){
+                if(status=="success"){
+                    $.get(url_1, function(data,status){});
+                    window.parent.location.href=window.parent.location.href;
+                }
+            });
+            windows.location.href= "http://tickets.caiqing.work/index.php/admin/index/re_init";
+        
+                //$(obj).parents("tr").remove();
+            layer.msg('数据已编辑!',{icon:1,time:1000});
+            
+    
+    }
+    
+    </script>
+</body>
+</html>

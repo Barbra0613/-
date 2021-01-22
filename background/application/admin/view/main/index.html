@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>购票管理后台系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/temp/X-admin/css/font.css">
+    <link rel="stylesheet" href="/temp/X-admin/css/xadmin.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <script src="/temp/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/temp/X-admin/js/xadmin.js"></script>
+</head>
+
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body ">
+                        <blockquote class="layui-elem-quote">欢迎管理员：
+                            <span class="x-red">{:session('user_name')}</span>！
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">数据统计</div>
+                    <div class="layui-card-body ">
+                        <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                            <li class="layui-col-md2 layui-col-xs6">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>总票数</h3>
+                                    <p>
+                                        <cite>{$num_tic}</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2 layui-col-xs6">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>剩余票数</h3>
+                                    <p>
+                                        <cite>{$re_tic}</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2 layui-col-xs6">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>总订单数</h3>
+                                    <p>
+                                        <cite>{$order}</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2 layui-col-xs6">
+                                <a href="javascript:;" class="x-admin-backlog-body">
+                                    <h3>客户日志数</h3>
+                                    <p>
+                                        <cite>{$log}</cite></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
