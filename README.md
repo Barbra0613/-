@@ -38,5 +38,5 @@
     
     - 配置background/application/database.php中数据库基本信息
     
-    - 访问url：域名index.php/admin/login/index.html 即可进入后台管理端端登录入口
+    - 访问url：域名index.php/admin/login/index.html 即可进入后台管理端登录入口
 
