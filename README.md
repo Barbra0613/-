@@ -15,14 +15,23 @@
 ### 部署说明
 1. 用户端：
     - Nginx 1.18.0
+    
       MySQL 5.6.50
+      
       PHP 5.6
+      
       Redis 6.0.9
+      
     - 基于ThinkPHP 5.0部署基础站点
+    
     - 将application与public两目录导入站点
+    
     - 在站点目录下，配置安装tp5扩展rabbit mq、jwt
+    
     - 导入mysql.sql数据库信息
+    
     - 配置client/application/database.php中数据库基本信息
+    
 2. 后台管理端：
     - 第二项嵌套的第一个元素
     - 第二项嵌套的第二个元素
