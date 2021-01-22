@@ -4,13 +4,10 @@
 
 
 ### 用户端
-实现高并发下的秒杀任务，项目存储于client文件夹下，主界面如下图所示：
-![Image text](https://github.com/Barbra0613/seckill-system-for-tickets/blob/main/pic/用户端.png)
-
+实现高并发下的秒杀任务，项目存储于client文件夹下
 
 ### 后台管理端
-实现购票秒杀系统的后台管理任务，项目存储于background文件夹下，主界面如下图所示：
-![Image text](https://github.com/Barbra0613/seckill-system-for-tickets/blob/main/pic/后台管理端.png)
+实现购票秒杀系统的后台管理任务，项目存储于background文件夹下
 
 ### 部署说明
 1. 用户端：
