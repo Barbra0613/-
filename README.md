@@ -23,6 +23,8 @@
     
     - 配置client/application/database.php中数据库基本信息
     
+    - 访问url：域名/index.php/admin/login/index.html 即可进入用户端登录入口
+    
 2. 后台管理端：
     - requirements：Apache 2.4.46、 MySQL 5.6.50、 PHP 5.6 、 JWT
       
@@ -35,4 +37,6 @@
     - 导入mysql.sql数据库信息
     
     - 配置background/application/database.php中数据库基本信息
+    
+    - 访问url：域名index.php/admin/login/index.html 即可进入后台管理端端登录入口
 
