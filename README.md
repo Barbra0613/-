@@ -14,7 +14,7 @@
 
 ### 部署说明
 1. 用户端：
-    - requirements：Nginx 1.18.0、 MySQL 5.6.50、 PHP 5.6、 Redis 6.0.9、 rabbit mq、 jwt
+    - requirements：Nginx 1.18.0、 MySQL 5.6.50、 PHP 5.6、 Redis 6.0.9、 Rabbit MQ、 JWT
       
     - 基于ThinkPHP 5.0部署基础站点
     
@@ -27,7 +27,7 @@
     - 配置client/application/database.php中数据库基本信息
     
 2. 后台管理端：
-    - requirements：Apache 2.4.46、 MySQL 5.6.50、 PHP 5.6 、 jwt
+    - requirements：Apache 2.4.46、 MySQL 5.6.50、 PHP 5.6 、 JWT
       
     - 基于ThinkPHP 5.0部署基础站点
     
