@@ -147,7 +147,6 @@ class Index extends Controller
         $callback = function($msg) {
             echo " [x] Received ", $msg->body, "\n";
             $ticket_data = json_decode(($msg->body),true);
-            $this->writeLog(1,$msg->body);
             $result = Db::table('client_order')->insert($ticket_data);
             $res = Db::table('ticket')->where('id',$ticket_data['ticket_id'])->setDec('re_num');
             
