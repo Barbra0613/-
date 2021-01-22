@@ -17,7 +17,7 @@
     
     - 将application与public两目录导入站点
     
-    - 在站点目录下，配置安装tp5扩展rabbit mq、jwt
+    - 在站点目录下，配置安装tp5扩展Rabbit MQ、 JWT
     
     - 导入mysql.sql数据库信息
     
@@ -32,7 +32,7 @@
     
     - 将application与public两目录导入站点
     
-    - 在站点目录下，配置安装tp5扩展jwt
+    - 在站点目录下，配置安装tp5扩展JWT
     
     - 导入mysql.sql数据库信息
     
