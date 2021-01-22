@@ -46,7 +46,7 @@ class Index extends Controller
             }
             // echo "库存初始化完成:".$this->redis->llen($t_name)."!";
         }
-        //$this->receive_order();
+        $this->receive_order();
     }
  
     /**
