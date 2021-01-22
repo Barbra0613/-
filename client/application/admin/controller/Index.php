@@ -39,12 +39,13 @@ class Index extends Controller
             ];
 
             $t_name = 'ticket_data_'.$id;
+            $t_s = 'tic_'.$id;
             $this->redis->set($t_name, json_encode($ticket_data));
-            for ( $j=0; $j < $store; $j++ ) { 
+            for ( $j=0; $j < $store; $j++ ) {
                 // 向库存列表推进,模拟商品库存
-                $this->redis->lpush($t_name,1);
+                $this->redis->lpush($t_s,1);
             }
-            // echo "库存初始化完成:".$this->redis->llen($t_name)."!";
+    
         }
         $this->receive_order();
     }
@@ -54,41 +55,42 @@ class Index extends Controller
      */
     public function index()
     {
- 
+
         $ticket_data = array();
 
         $ticket_data[0] = json_decode($this->redis->get('ticket_data_1'),true);
         $ticket_data[1] = json_decode($this->redis->get('ticket_data_2'),true);
-        
+
         $this->assign("info", $ticket_data);
         // return json($ticket_data)
         return $this->fetch('/index/index');
         
     }
 
-    
+
      /**
      * 秒杀入口
      */
     public function kill() {
         
-        $id = $_POST["place"]; //商品编号 
+        $id = $_POST["place"]; //商品编号
         $name = $_POST["name"];
         $iden_num = $_POST["iden_num"];
         $take = $_POST["take"];
 
-        $t_name = "tic".$id;
+
+        $t_s = 'tic_'.$id;
         
         if ( empty($id) ) {
             // 记录失败日志
-            return $this->writeLog(0,'商品编号不存在'); 
+            return $this->writeLog(0,'商品编号不存在');
         }
          
-        $count = $this->redis->lpop($t_name);
+        $count = $this->redis->lpop($t_s);
 
         if( !$count ){
             $this->writeLog(0,'秒杀失败，无库存');
-            $this->error('秒杀失败，无库存');
+            $this->error('秒杀失败，无库存', 'index/index');
             return;
         }
 
@@ -109,7 +111,7 @@ class Index extends Controller
         ];
          
         $this->send_order( json_encode($insert_data) );
-        $this->success('秒杀成功');
+        $this->success('秒杀成功', 'index/index');
         
     }
      
@@ -122,16 +124,12 @@ class Index extends Controller
 
     public function send_order( $message ) {
 
-        $connection = new AMQPStreamConnection('localhost', 5672, '', '');
+        $connection = new AMQPStreamConnection('localhost', 5672, 'mq', 'mq123');
         $channel = $connection->channel();
-        //发送方其实不需要设置队列， 不过对于持久化有关，建议执行该行
         $channel->queue_declare('order', false, false, false, false);
 
         $msg = new AMQPMessage( $message );
         $channel->basic_publish($msg, '', 'order');
-        //Db::table('client_order')->insert(json_decode(($msg->body),true));
-
-        // echo " [x] Sent ".$message."\n";
 
         $channel->close();
         $connection->close();
@@ -140,7 +138,7 @@ class Index extends Controller
 
     public function receive_order() {
 
-        $connection = new AMQPStreamConnection('localhost', 5672, '', '');
+        $connection = new AMQPStreamConnection('localhost', 5672, 'mq', 'mq123');
         $channel = $connection->channel();
         $channel->queue_declare('order', false, false, false, false);
  
