@@ -54,20 +54,11 @@ class Index extends Controller
      */
     public function index()
     {
-        // $info = db('ticket')->select();
-        // $this->assign("lists", $info);
+ 
         $ticket_data = array();
 
         $ticket_data[0] = json_decode($this->redis->get('ticket_data_1'),true);
         $ticket_data[1] = json_decode($this->redis->get('ticket_data_2'),true);
-        // $ticket_data = $this->redis->get('ticket_data_1');
-        // $this->assign("id", $ticket_data['id']);
-        // $this->assign("place", $ticket_data['place']);
-        // $this->assign("price", $ticket_data['price']);
-        // $this->assign("re_num", $ticket_data['store']);
-        // echo json_encode($info);
-        // echo ($info);
-        // echo ($ticket_data);
         
         $this->assign("info", $ticket_data);
         // return json($ticket_data)
@@ -120,18 +111,6 @@ class Index extends Controller
         $this->send_order( json_encode($insert_data) );
         $this->success('秒杀成功');
         
-        // // 订单入库
-        // $result = Db::table('client_order')->insert($insert_data);
-        // // 自动减少一个库存
-        // $res = Db::table('ticket')->where('id',$id)->setDec('re_num');
-        
-        // if ($res) {
-        //     echo "秒杀成功";
-        //     $this->writeLog(1,'秒杀成功');
-        // }else{
-        //     echo "秒杀失败";
-        //     $this->writeLog(0,'秒杀失败');
-        // }
     }
      
     /**
@@ -143,7 +122,7 @@ class Index extends Controller
 
     public function send_order( $message ) {
 
-        $connection = new AMQPStreamConnection('localhost', 5672, 'mq', 'mq123');
+        $connection = new AMQPStreamConnection('localhost', 5672, '', '');
         $channel = $connection->channel();
         //发送方其实不需要设置队列， 不过对于持久化有关，建议执行该行
         $channel->queue_declare('order', false, false, false, false);
@@ -161,7 +140,7 @@ class Index extends Controller
 
     public function receive_order() {
 
-        $connection = new AMQPStreamConnection('localhost', 5672, 'mq', 'mq123');
+        $connection = new AMQPStreamConnection('localhost', 5672, '', '');
         $channel = $connection->channel();
         $channel->queue_declare('order', false, false, false, false);
  
